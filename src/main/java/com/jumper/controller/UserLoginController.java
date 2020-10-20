@@ -7,30 +7,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class UserLoginController {
 
+    UserLoginService userLoginService;
+
+    //基于Setter的依赖注入
     @Autowired
-    private UserLoginService userLoginService;
-
-    @RequestMapping("/user")
-    public String userLogin(){
-        System.out.println(userLoginService.selectUserLoginByID(1));
-        return "user";
+    public void setUserLoginService(UserLoginService userLoginService) {
+        this.userLoginService = userLoginService;
     }
 
-    @RequestMapping("/test")
-    public String test(){
-        return "jumper ok";
+    @RequestMapping("/login")
+    public String login(String username,String password){
+        if(username.equals("admin"))
+            return "redirect:/admin/showCourse";
+        else if(username.equals("student"))
+            return "redirect:/student/showCourse";
+        else if (username.equals("teacher"))
+            return "redirect:/teacher/showCourse";
+        return "/login";
     }
 
-    @RequestMapping("/test1")
-    public String test1(){
-        return "jumper ok1";
-    }
-
-    @RequestMapping("/test2")
-    public String test2(){
-        return "jumper ok2";
-    }
 }

@@ -1,6 +1,5 @@
 package com.jumper.service;
 
-import com.jumper.mapper.UserLoginMapper;
 import com.jumper.pojo.UserLogin;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +12,7 @@ public class userlogin {
 
     @Before
     public void setUp() throws Exception {
-        applicationContext = new ClassPathXmlApplicationContext(new String[]{"spring-dao.xml", "spring-service.xml"});
+        applicationContext = new ClassPathXmlApplicationContext(new String[]{"spring/spring-dao.xml", "spring/spring-service.xml"});
        userLoginServiceImpl = (UserLoginService) applicationContext.getBean("userLoginServiceImpl");
     }
 

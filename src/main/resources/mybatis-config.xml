@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+    <!-- 为JAVA POJO类起类别名 -->
     <typeAliases>
         <package name="com.jumper.pojo"/>
     </typeAliases>

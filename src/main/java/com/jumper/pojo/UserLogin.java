@@ -2,7 +2,7 @@ package com.jumper.pojo;
 
 import org.springframework.stereotype.Repository;
 
-@Repository
+
 public class UserLogin {
 
     private int userID;

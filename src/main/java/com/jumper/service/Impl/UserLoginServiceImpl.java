@@ -9,13 +9,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserLoginServiceImpl implements UserLoginService {
 
+    //基于字段的依赖注入
     @Autowired
     UserLoginMapper userLoginMapper;
-
-//    @Autowired
-//    public void setUserLoginMapper(UserLoginMapper userLoginMapper) {
-//        this.userLoginMapper = userLoginMapper;
-//    }
 
     @Override
     public UserLogin selectUserLoginByID(int userID) {

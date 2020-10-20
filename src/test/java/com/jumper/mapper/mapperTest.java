@@ -1,14 +1,10 @@
 package com.jumper.mapper;
 
-import com.jumper.mapper.UserLoginMapper;
 import com.jumper.pojo.UserLogin;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.List;
 
 public class mapperTest {
 
@@ -16,7 +12,7 @@ public class mapperTest {
 
     @Before
     public void setUp() throws Exception {
-        applicationContext = new ClassPathXmlApplicationContext("spring-dao.xml");
+        applicationContext = new ClassPathXmlApplicationContext("spring/spring-dao.xml");
     }
 
     @Test
