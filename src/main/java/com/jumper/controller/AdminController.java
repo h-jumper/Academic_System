@@ -1,12 +1,7 @@
 package com.jumper.controller;
 
-import com.jumper.pojo.College;
-import com.jumper.pojo.Course;
-import com.jumper.pojo.Page;
-import com.jumper.pojo.Teacher;
-import com.jumper.service.CollegeService;
-import com.jumper.service.CourseService;
-import com.jumper.service.TeacherService;
+import com.jumper.pojo.*;
+import com.jumper.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -28,15 +24,28 @@ public class AdminController {
     @Autowired
     CollegeService collegeService;
 
+    @Autowired
+    StudentService studentService;
+
+    @Autowired
+    UserLoginService userLoginService;
+
+    //========================课程============================
     @RequestMapping("/admin/showCourse")
-    public String toShowCourse(Model model,Integer page){
+    public String toShowCourse(Model model, Integer page, HttpSession session){
         Page pages = new Page();
-        pages.setTotalCount(courseService.courseCount());
+        int courseCount = courseService.courseCount();
+        int studentCount = studentService.studentCount();
+        int teacherCount = teacherService.teacherCount();
+        pages.setTotalCount(courseCount);
         if(page == null || page == 0){
             pages.setCurrentPageNo(1);
         }else
             pages.setCurrentPageNo(page);
         List<Course> courseList = courseService.selectCourseByPage(pages);
+        session.setAttribute("courseCount",courseCount);
+        session.setAttribute("studentCount",studentCount);
+        session.setAttribute("teacherCount",teacherCount);
         model.addAttribute("page",pages);
         model.addAttribute("courseList",courseList);
         return "admin/showCourse";
@@ -85,37 +94,176 @@ public class AdminController {
     }
 
     @RequestMapping("/admin/selectCourse")
-    public String selectCourse(Model model,Integer page,String courseName){
-        Page pages = new Page();
-        pages.setTotalCount(courseService.countCourseByName(courseName));
-        if(page == null || page == 0){
-            pages.setCurrentPageNo(1);
-        }else
-            pages.setCurrentPageNo(page);
-        List<Course> courseList = courseService.selectCourseByName(courseName,pages);
-        model.addAttribute("courseName",courseName);
-        model.addAttribute("selectPage",pages);
+    public String selectCourse(Model model,String courseName){
+        List<Course> courseList = courseService.selectCourseByName(courseName);
         model.addAttribute("courseList",courseList);
         return "admin/showCourse";
     }
 
+    //========================学生============================
     @RequestMapping("/admin/showStudent")
-    public String toShowStudent(){
+    public String toShowStudent(Model model,Integer page,HttpSession session){
+        Page pages = new Page();
+        int count = studentService.studentCount();
+        pages.setTotalCount(count);
+        if(page == null || page == 0){
+            pages.setCurrentPageNo(1);
+        }else
+            pages.setCurrentPageNo(page);
+        List<Student> students = studentService.selectStudentByPage(pages);
+        session.setAttribute("studentCount",count);
+        model.addAttribute("page",pages);
+        model.addAttribute("studentList",students);
         return "admin/showStudent";
     }
 
+    @GetMapping("/admin/addStudent")
+    public String toAddStudent(Model model){
+        List<College> colleges = collegeService.selectAllCollege();
+        model.addAttribute("collegeList",colleges);
+        return "admin/addStudent";
+    }
+
+    @PostMapping("/admin/addStudent")
+    public String addStudent(Model model,Student student){
+        if (studentService.addStudent(student))
+            return "redirect:/admin/showStudent";
+        else{
+            model.addAttribute("message","学号重复");
+            return "error";
+        }
+    }
+
+    @GetMapping("/admin/editStudent")
+    public String toEditStudent(Model model,int id){
+        List<College> colleges = collegeService.selectAllCollege();
+        Student student = studentService.selectStudentByID(id);
+        model.addAttribute("collegeList",colleges);
+        model.addAttribute("student",student);
+        return "admin/editStudent";
+    }
+
+    @PostMapping("/admin/editStudent")
+    public String editStudent(Student student){
+        studentService.updateStudent(student);
+        return "redirect:/admin/showStudent";
+    }
+
+    @GetMapping("/admin/removeStudent")
+    public String removeStudent(int id){
+        studentService.deleteStudent(id);
+        return "redirect:/admin/showStudent";
+    }
+
+    @RequestMapping("/admin/selectStudent")
+    public String selectStudent(Model model,String studentName){
+        List<Student> students = studentService.selectStudentByName(studentName);
+        model.addAttribute("studentList",students);
+        return "admin/showStudent";
+    }
+
+    //========================老师============================
     @RequestMapping("/admin/showTeacher")
-    public String toShowTeacher(){
+    public String toShowTeacher(Model model,Integer page,HttpSession session){
+        Page pages = new Page();
+        int teacherCount = teacherService.teacherCount();
+        pages.setTotalCount(teacherCount);
+        if(page == null || page == 0){
+            pages.setCurrentPageNo(1);
+        }else
+            pages.setCurrentPageNo(page);
+        List<Teacher> teachers = teacherService.selectTeacherByPage(pages);
+        session.setAttribute("teacherCount",teacherCount);
+        model.addAttribute("page",pages);
+        model.addAttribute("teacherList",teachers);
         return "admin/showTeacher";
     }
 
-    @RequestMapping("/admin/userPasswordRest")
+    @GetMapping("/admin/addTeacher")
+    public String toAddTeacher(Model model){
+        List<College> colleges = collegeService.selectAllCollege();
+        model.addAttribute("collegeList",colleges);
+        return "admin/addTeacher";
+    }
+
+    @PostMapping("/admin/addTeacher")
+    public String addTeacher(Model model,Teacher teacher){
+        if (teacherService.addTeacher(teacher))
+            return "redirect:/admin/showTeacher";
+        else{
+            model.addAttribute("message","工号重复");
+            return "error";
+        }
+    }
+
+    @GetMapping("/admin/editTeacher")
+    public String toEditTeacher(Model model,int id){
+        List<College> colleges = collegeService.selectAllCollege();
+        Teacher teacher = teacherService.selectTeacherByID(id);
+        model.addAttribute("collegeList",colleges);
+        model.addAttribute("teacher",teacher);
+        return "admin/editTeacher";
+    }
+
+    @PostMapping("/admin/editTeacher")
+    public String editStudent(Teacher teacher){
+        teacherService.updateTeacher(teacher);
+        return "redirect:/admin/showTeacher";
+    }
+
+    @GetMapping("/admin/removeTeacher")
+    public String removeTeacher(Model model,int id){
+        if (teacherService.deleteTeacher(id))
+            return "redirect:/admin/showTeacher";
+        else{
+            model.addAttribute("message","请先删除此老师的课程");
+            return "error";
+        }
+    }
+
+    @RequestMapping("/admin/selectTeacher")
+    public String selectTeacher(Model model,String teacherName){
+        List<Teacher> teachers = teacherService.selectTeacherByName(teacherName);
+        model.addAttribute("teacherList",teachers);
+        return "admin/showTeacher";
+    }
+
+    //========================修改密码============================
+    @GetMapping("/admin/userPasswordRest")
     public String toUserPasswordRest(){
         return "admin/userPasswordRest";
     }
 
-    @RequestMapping("/admin/passwordRest")
+    @PostMapping("/admin/userPasswordRest")
+    public String UserPasswordRest(Model model,UserLogin userLogin){
+        boolean flag = userLoginService.updateUserLoginByName(userLogin);
+        if (flag)
+            return "admin/userPasswordRest";
+        else{
+            model.addAttribute("message","没有此用户");
+            return "error";
+        }
+    }
+
+    @GetMapping("/admin/passwordRest")
     public String toPasswordRest(){
         return "admin/passwordRest";
+    }
+
+    @PostMapping("/admin/passwordRest")
+    public String passwordRest(Model model,HttpSession session,String oldPassword,String password1){
+        String userName = (String) session.getAttribute("userName");
+        UserLogin userLogin = userLoginService.selectUserLoginByName(userName);
+        if (userLogin.getPassword().equals(oldPassword)){
+            UserLogin login = new UserLogin();
+            login.setUserName(userName);
+            login.setPassword(password1);
+            login.setRole(userLogin.getRole());
+            userLoginService.updateUserLoginByName(login);
+            return "admin/passwordRest";
+        }else{
+            model.addAttribute("message","旧密码错误");
+            return "error";
+        }
     }
 }

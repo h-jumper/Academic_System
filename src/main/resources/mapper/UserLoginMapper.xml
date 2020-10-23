@@ -8,12 +8,20 @@
         select * from userlogin where userID=#{userID}
     </select>
 
+    <select id="selectUserLoginByName" resultType="com.jumper.pojo.UserLogin">
+        select * from userlogin where userName=#{userName}
+    </select>
+
     <insert id="addUserLogin" parameterType="com.jumper.pojo.UserLogin">
         insert into userlogin(userName,password,role) values(#{userName},#{password},#{role})
     </insert>
 
-    <update id="updateUserLogin" parameterType="com.jumper.pojo.UserLogin">
+    <update id="updateUserLoginByID" parameterType="com.jumper.pojo.UserLogin">
         update userlogin set userName=#{userName},password=#{password},role=#{role} where userID=#{userID}
+    </update>
+
+    <update id="updateUserLoginByName" parameterType="com.jumper.pojo.UserLogin">
+        update userlogin set password=#{password},role=#{role} where userName=#{userName}
     </update>
 
     <delete id="deleteUserLogin" parameterType="int">

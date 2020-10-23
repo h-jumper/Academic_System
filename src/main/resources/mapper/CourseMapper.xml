@@ -5,7 +5,7 @@
 <mapper namespace="com.jumper.mapper.CourseMapper">
 
     <select id="selectCourseByPage" parameterType="com.jumper.pojo.Page" resultType="com.jumper.pojo.Course">
-        select * from course limit #{index},#{pageSize}
+        select course.*,teacher.userName teacherName from course,teacher where course.teacherID=teacher.userID limit #{index},#{pageSize}
     </select>
 
     <select id="selectCourseByID" resultType="com.jumper.pojo.Course">
@@ -32,11 +32,14 @@
     </delete>
 
     <select id="selectCourseByName" resultType="com.jumper.pojo.Course">
-        select * from course where courseName like "%"#{courseName}"%" limit #{Page.index},#{Page.pageSize}
+        select course.*,teacher.userName teacherName from course,teacher where course.courseName like "%"#{courseName}"%" and course.teacherID=teacher.userID
     </select>
 
     <select id="countCourseByName" parameterType="String" resultType="int">
         select count(1) from course where courseName like "%"#{courseName}"%"
     </select>
 
+    <select id="selectCourseByTeacherID" resultType="com.jumper.pojo.Course">
+        select course.*,teacher.userName teacherName from course,teacher where course.teacherID=teacher.userID and course.teacherID=#{teacherID}
+    </select>
 </mapper>

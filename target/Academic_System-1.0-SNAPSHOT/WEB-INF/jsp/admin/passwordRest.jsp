@@ -26,7 +26,7 @@
 						</div>
 				    </div>
 				    <div class="panel-body">
-						<form name="reset" class="form-horizontal" role="form" action="/passwordRest" id="editfrom" method="post" onsubmit="return check()">
+						<form name="reset" class="form-horizontal" role="form" action="/admin/passwordRest" id="editfrom" method="post" onsubmit="return check()">
 							  <div class="form-group">
 							    <label for="inputEmail3" class="col-sm-2 control-label">旧密码</label>
 							    <div class="col-sm-10">
@@ -47,7 +47,7 @@
 							  </div>
 							  <div class="form-group" style="text-align: center">
 								<button class="btn btn-default" type="submit">提交</button>
-								<button class="btn btn-default">重置</button>
+								<button class="btn btn-default" type="reset">重置</button>
 							  </div>
 						</form>
 				    </div>

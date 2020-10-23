@@ -51,8 +51,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> selectCourseByName(String courseName,Page page) {
-        return courseMapper.selectCourseByName(courseName,page);
+    public List<Course> selectCourseByName(String courseName) {
+        return courseMapper.selectCourseByName(courseName);
     }
 
     @Override

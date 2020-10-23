@@ -30,7 +30,7 @@
 							  <div class="form-group">
 							    <label for="inputEmail3" class="col-sm-2 control-label">账号(非管理员账号)</label>
 							    <div class="col-sm-10">
-							      <input type="text" class="form-control" name="username" id="inputEmail3" placeholder="请输入用户名">
+							      <input type="text" class="form-control" name="userName" id="inputEmail3" placeholder="请输入用户名">
 							    </div>
 							  </div>
 							  <div class="form-group">
@@ -47,7 +47,7 @@
 							  </div>
 							  <div class="form-group" style="text-align: center">
 								<button class="btn btn-default" type="submit">提交</button>
-								<button class="btn btn-default">重置</button>
+								<button class="btn btn-default" type="reset">重置</button>
 							  </div>
 						</form>
 				    </div>
@@ -67,7 +67,7 @@
     $("#nav li:nth-child(4)").addClass("active")
 
     function check() {
-        if(reset.username.value==""||reset.username.value==null)
+        if(reset.userName.value==""||reset.userName.value==null)
         {alert("请输入账户名称");return false;}
         if(reset.password.value==""||reset.password.value==null)
         {alert("请输入重置密码");return false;}

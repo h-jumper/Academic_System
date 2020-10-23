@@ -12,9 +12,7 @@ public class Teacher {
     private String title;
     private Date grade;
     private int collegeID;
-
-    public Teacher() {
-    }
+    private String collegeName;
 
     @Override
     public String toString() {
@@ -27,7 +25,19 @@ public class Teacher {
                 ", title='" + title + '\'' +
                 ", grade=" + grade +
                 ", collegeID=" + collegeID +
+                ", collegeName='" + collegeName + '\'' +
                 '}';
+    }
+
+    public String getCollegeName() {
+        return collegeName;
+    }
+
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
+    }
+
+    public Teacher() {
     }
 
     public int getUserID() {

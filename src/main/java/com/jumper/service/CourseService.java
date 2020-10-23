@@ -19,7 +19,7 @@ public interface CourseService {
 
     public int deleteCourse(int courseID);
 
-    public List<Course> selectCourseByName(String courseName,Page page);
+    public List<Course> selectCourseByName(String courseName);
 
     public int countCourseByName(String courseName);
 }

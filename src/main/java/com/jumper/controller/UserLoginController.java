@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class UserLoginController {
 
@@ -19,7 +21,8 @@ public class UserLoginController {
     }
 
     @RequestMapping("/login")
-    public String login(String username,String password){
+    public String login(String username, String password, HttpSession session){
+        session.setAttribute("userName",username);
         if(username.equals("admin"))
             return "redirect:/admin/showCourse";
         else if(username.equals("student"))

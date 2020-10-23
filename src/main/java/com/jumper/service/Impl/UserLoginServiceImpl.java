@@ -19,13 +19,31 @@ public class UserLoginServiceImpl implements UserLoginService {
     }
 
     @Override
+    public UserLogin selectUserLoginByName(String userName) {
+        return userLoginMapper.selectUserLoginByName(userName);
+    }
+
+    @Override
     public int addUserLogin(UserLogin userLogin) {
         return userLoginMapper.addUserLogin(userLogin);
     }
 
     @Override
-    public int updateUserLogin(UserLogin userLogin) {
-        return userLoginMapper.updateUserLogin(userLogin);
+    public boolean updateUserLoginByID(UserLogin userLogin) {
+        if(userLoginMapper.selectUserLoginByID(userLogin.getUserID())!=null) {
+            userLoginMapper.updateUserLoginByID(userLogin);
+            return true;
+        }else
+            return false;
+    }
+
+    @Override
+    public boolean updateUserLoginByName(UserLogin userLogin) {
+        if(userLoginMapper.selectUserLoginByName(userLogin.getUserName())!=null) {
+            userLoginMapper.updateUserLoginByName(userLogin);
+            return true;
+        }else
+            return false;
     }
 
     @Override

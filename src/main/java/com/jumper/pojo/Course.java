@@ -5,6 +5,7 @@ public class Course {
     private int courseID;
     private String courseName;
     private int teacherID;
+    private String teacherName;
     private String courseTime;
     private String classRoom;
     private int courseWeek;
@@ -18,6 +19,7 @@ public class Course {
                 "courseID=" + courseID +
                 ", courseName='" + courseName + '\'' +
                 ", teacherID=" + teacherID +
+                ", teacherName='" + teacherName + '\'' +
                 ", courseTime='" + courseTime + '\'' +
                 ", classRoom='" + classRoom + '\'' +
                 ", courseWeek=" + courseWeek +
@@ -27,13 +29,22 @@ public class Course {
                 '}';
     }
 
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
+    }
+
     public Course() {
     }
 
-    public Course(int courseID, String courseName, int teacherID, String courseTime, String classRoom, int courseWeek, String courseType, int collegeID, int score) {
+    public Course(int courseID, String courseName, int teacherID, String teacherName, String courseTime, String classRoom, int courseWeek, String courseType, int collegeID, int score) {
         this.courseID = courseID;
         this.courseName = courseName;
         this.teacherID = teacherID;
+        this.teacherName = teacherName;
         this.courseTime = courseTime;
         this.classRoom = classRoom;
         this.courseWeek = courseWeek;

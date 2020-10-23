@@ -11,9 +11,13 @@ public interface UserLoginMapper {
 
     public UserLogin selectUserLoginByID(int userID);
 
+    public UserLogin selectUserLoginByName(String userName);
+
     public int addUserLogin(UserLogin userLogin);
 
-    public int updateUserLogin(UserLogin userLogin);
+    public int updateUserLoginByID(UserLogin userLogin);
+
+    public int updateUserLoginByName(UserLogin userLogin);
 
     public int deleteUserLogin(int userID);
 }

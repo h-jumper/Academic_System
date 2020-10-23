@@ -1,3 +1,4 @@
+<%@ page import="java.net.URLEncoder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt" %>
@@ -47,7 +48,7 @@
 					            <tr>
 									<th>课程号</th>
 									<th>课程名称</th>
-									<th>授课老师编号</th>
+									<th>授课老师</th>
 									<th>上课时间</th>
 									<th>上课地点</th>
 									<th>周数</th>
@@ -61,7 +62,7 @@
 								<tr>
 									<td>${item.courseID}</td>
 									<td>${item.courseName}</td>
-									<td>${item.teacherID}</td>
+									<td>${item.teacherName}</td>
 									<td>${item.courseTime}</td>
 									<td>${item.classRoom}</td>
 									<td>${item.courseWeek}</td>
@@ -95,27 +96,6 @@
 										<li><a href="/admin/showCourse?page=${page.currentPageNo+4}">${page.currentPageNo+4}</a></li>
 									</c:if>
 									<li><a href="/admin/showCourse?page=${page.totalCount}">最后一页&raquo;</a></li>
-								</ul>
-							</nav>
-						</c:if>
-						<c:if test="${selectPage != null}">
-							<nav style="text-align: center">
-								<ul class="pagination">
-									<li><a href="/admin/selectCourse?page=${selectPage.upPageNo}&courseName=${courseName}">&laquo;上一页</a></li>
-									<li class="active"><a href="/admin/selectCourse?page=${selectPage.currentPageNo}&courseName=${courseName}">${selectPage.currentPageNo}</a></li>
-									<c:if test="${selectPage.currentPageNo+1 <= selectPage.totalCount}">
-										<li><a href="/admin/selectCourse?page=${selectPage.currentPageNo+1}&courseName=${courseName}">${selectPage.currentPageNo+1}</a></li>
-									</c:if>
-									<c:if test="${selectPage.currentPageNo+2 <= selectPage.totalCount}">
-										<li><a href="/admin/selectCourse?page=${selectPage.currentPageNo+2}&courseName=${courseName}">${selectPage.currentPageNo+2}</a></li>
-									</c:if>
-									<c:if test="${selectPage.currentPageNo+3 <= selectPage.totalCount}">
-										<li><a href="/admin/selectCourse?page=${selectPage.currentPageNo+3}&courseName=${courseName}">${selectPage.currentPageNo+3}</a></li>
-									</c:if>
-									<c:if test="${selectPage.currentPageNo+4 <= selectPage.totalCount}">
-										<li><a href="/admin/selectCourse?page=${selectPage.currentPageNo+4}&courseName=${courseName}">${selectPage.currentPageNo+4}</a></li>
-									</c:if>
-									<li><a href="/admin/selectCourse?courseName=${courseName}">最后一页&raquo;</a></li>
 								</ul>
 							</nav>
 						</c:if>

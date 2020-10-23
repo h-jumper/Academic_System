@@ -11,8 +11,19 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!--使用annotation-driven注解驱动，就可以代替 注解映射器 和 注解适配器 的配置-->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven conversion-service="conversionService">
+    </mvc:annotation-driven>
 
+    <!--自定义参数绑定组件-->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <!-- 转换器 -->
+        <property name="converters">
+            <set>
+                <!-- 日期类型转换 -->
+                <bean class="com.jumper.config.CustomDateConverter"/>
+            </set>
+        </property>
+    </bean>
     <!--加载静态资源-->
     <mvc:default-servlet-handler/>
 
