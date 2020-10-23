@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -68,6 +69,16 @@ public class AdminController {
             model.addAttribute("message","课程号重复");
             return "error";
         }
+    }
+
+    @RequestMapping("/admin/addCourseCheck")
+    @ResponseBody
+    public String addCourseCheck(int courseID){
+        Course course = courseService.selectCourseByID(courseID);
+        if (course!=null)
+            return "false";
+        else
+            return "true";
     }
 
     @GetMapping("/admin/editCourse")
@@ -134,6 +145,16 @@ public class AdminController {
         }
     }
 
+    @RequestMapping("/admin/addStudentCheck")
+    @ResponseBody
+    public String addStudentCheck(int userID){
+        Student student = studentService.selectStudentByID(userID);
+        if (student!=null)
+            return "false";
+        else
+            return "true";
+    }
+
     @GetMapping("/admin/editStudent")
     public String toEditStudent(Model model,int id){
         List<College> colleges = collegeService.selectAllCollege();
@@ -196,6 +217,16 @@ public class AdminController {
         }
     }
 
+    @RequestMapping("/admin/addTeacherCheck")
+    @ResponseBody
+    public String addTeacherCheck(int userID){
+        Teacher teacher = teacherService.selectTeacherByID(userID);
+        if (teacher!=null)
+            return "false";
+        else
+            return "true";
+    }
+
     @GetMapping("/admin/editTeacher")
     public String toEditTeacher(Model model,int id){
         List<College> colleges = collegeService.selectAllCollege();
@@ -245,19 +276,29 @@ public class AdminController {
         }
     }
 
+    @RequestMapping("/admin/usePasswordRestCheck")
+    @ResponseBody
+    public String usePasswordRestCheck(String userName){
+        UserLogin userLogin = userLoginService.selectUserLoginByName(userName);
+        if (userLogin==null)
+            return "false";
+        else
+            return "true";
+    }
+
     @GetMapping("/admin/passwordRest")
     public String toPasswordRest(){
         return "admin/passwordRest";
     }
 
     @PostMapping("/admin/passwordRest")
-    public String passwordRest(Model model,HttpSession session,String oldPassword,String password1){
+    public String passwordRest(Model model,HttpSession session,String oldPassword,String password){
         String userName = (String) session.getAttribute("userName");
         UserLogin userLogin = userLoginService.selectUserLoginByName(userName);
         if (userLogin.getPassword().equals(oldPassword)){
             UserLogin login = new UserLogin();
             login.setUserName(userName);
-            login.setPassword(password1);
+            login.setPassword(password);
             login.setRole(userLogin.getRole());
             userLoginService.updateUserLoginByName(login);
             return "admin/passwordRest";
@@ -265,5 +306,16 @@ public class AdminController {
             model.addAttribute("message","旧密码错误");
             return "error";
         }
+    }
+
+    @RequestMapping("/admin/passwordRestCheck")
+    @ResponseBody
+    public String passwordRestCheck(String oldPassword,HttpSession session){
+        String userName = (String) session.getAttribute("userName");
+        UserLogin userLogin = userLoginService.selectUserLoginByName(userName);
+        if (userLogin.getPassword().equals(oldPassword))
+            return "true";
+        else
+            return "false";
     }
 }

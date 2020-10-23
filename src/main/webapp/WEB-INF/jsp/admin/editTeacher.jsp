@@ -31,21 +31,21 @@
 				    <div class="panel-body">
 						<form name="form" class="form-horizontal" role="form" action="/admin/editTeacher" id="editfrom" method="post" onsubmit="return check()">
 							  <div id="userID" class="form-group has-feedback">
-							    <label for="inputEmail3" class="col-sm-3 control-label">工号</label>
+							    <label for="inputUserID" class="col-sm-3 control-label">工号</label>
 							    <div class="col-sm-7">
-							      <input readonly="readonly" type="number" class="form-control" id="inputEmail3" name="userID" placeholder="请输入工号" value="${teacher.userID}">
-								  <span id="userIDSpan" class="glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+							      <input readonly="readonly" type="number" class="form-control" id="inputUserID" name="userID" placeholder="请输入工号" value="${teacher.userID}">
+								  <span id="userIDSpan" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 								</div>
 							  </div>
 							  <div id="userName" class="form-group has-feedback">
-							    <label for="inputPassword3" class="col-sm-3 control-label">姓名</label>
+							    <label for="inputUserName" class="col-sm-3 control-label">姓名</label>
 							    <div class="col-sm-7">
-							      <input type="text" class="form-control" id="inputPassword3" name="userName" placeholder="请输入姓名" value="${teacher.userName}">
-								  <span id="userNameSpan" class="glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+							      <input type="text" class="form-control" id="inputUserName" name="userName" placeholder="请输入姓名" value="${teacher.userName}">
+								  <span id="userNameSpan" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 								</div>
 							  </div>
 							  <div class="form-group">
-							    <label for="inputPassword3" class="col-sm-3 control-label">性别</label>
+							    <label class="col-sm-3 control-label">性别</label>
 							    <div class="col-sm-7">
 								    <label class="checkbox-inline">
 										<input type="radio" name="sex" value="男" <c:if test="${teacher.sex == '男'}">checked</c:if>>男
@@ -56,13 +56,13 @@
 							    </div>
 							  </div>
 							  <div class="form-group">
-							    <label for="inputPassword3" class="col-sm-3 control-label">出生年份</label>
+							    <label for="inputBirthYear" class="col-sm-3 control-label">出生年份</label>
 							    <div class="col-sm-7">
-								    <input type="date" value="<fmt:formatDate value="${teacher.birthYear}" dateStyle="medium" pattern="yyyy-MM-dd" />" name="birthYear"/>
+								    <input id="inputBirthYear" type="date" value="<fmt:formatDate value="${teacher.birthYear}" dateStyle="medium" pattern="yyyy-MM-dd" />" name="birthYear"/>
 							    </div>
 							  </div>
 							  <div class="form-group">
-								<label for="inputPassword3" class="col-sm-3 control-label" name="degree">学历</label>
+								<label for="degree" class="col-sm-3 control-label" name="degree">学历</label>
 								<div class="col-sm-7">
 									<select class="form-control" name="degree" id="degree">
 										<option value="本科">本科</option>
@@ -72,7 +72,7 @@
 								</div>
 							  </div>
 							<div class="form-group">
-								<label for="inputPassword3" class="col-sm-3 control-label" name="title" >职称</label>
+								<label for="title" class="col-sm-3 control-label" name="title" >职称</label>
 								<div class="col-sm-7">
 									<select class="form-control" name="title" id="title">
 										<option value="普通教师">普通教师</option>
@@ -84,15 +84,15 @@
 								</div>
 							</div>
 							  <div class="form-group">
-							    <label for="inputPassword3" class="col-sm-3 control-label" name="grade">入职时间</label>
+							    <label for="grade" class="col-sm-3 control-label" name="grade">入职时间</label>
 							    <div class="col-sm-7">
-								    <input type="date" value="<fmt:formatDate value="${teacher.grade}" dateStyle="medium" pattern="yyyy-MM-dd" />" name="grade"/>
+								    <input id="grade" type="date" value="<fmt:formatDate value="${teacher.grade}" dateStyle="medium" pattern="yyyy-MM-dd" />" name="grade"/>
 							    </div>
 							  </div>
 							  <div class="form-group">
-							    <label for="inputPassword3" class="col-sm-3 control-label" name="grade">所属院系</label>
+							    <label for="collegeID" class="col-sm-3 control-label" name="grade">所属院系</label>
 							    <div class="col-sm-7">
-								    <select class="form-control" name="collegeID" id="college">
+								    <select class="form-control" name="collegeID" id="collegeID">
 										<c:forEach items="${collegeList}" var="item">
 											<option value="${item.collegeID}">${item.collegeName}</option>
 										</c:forEach>
@@ -101,7 +101,7 @@
 							  </div>
 							  <div class="form-group" style="text-align: center">
 								<button class="btn btn-default" type="submit">提交</button>
-								<button class="btn btn-default" type="reset">重置</button>
+								<button class="btn btn-default" type="reset" onclick="rs()">重置</button>
 							  </div>
 						</form>
 				    </div>
@@ -143,23 +143,29 @@
 
 		function check() {
 			var flag = true;
-			if(form.userID.value==""||form.userID.value==null){
-				$("#userID").addClass("has-error");
-				$("#userIDSpan").addClass("glyphicon");
-				flag = false;
-			}else{
-				$("#userID").removeClass("has-error");
-				$("#userIDSpan").removeClass("glyphicon");
-			}
 			if(form.userName.value==""||form.userName.value==null){
 				$("#userName").addClass("has-error");
-				$("#userNameSpan").addClass("glyphicon");
+				$("#userNameSpan").addClass("glyphicon-remove");
 				flag = false;
-			}else{
-				$("#userName").removeClass("has-error");
-				$("#userNameSpan").removeClass("glyphicon");
 			}
 			return flag;
+		}
+
+		$(function(){
+			$("#inputUserName").focus(function(){
+				$("#userName").removeClass("has-error");
+				$("#userNameSpan").removeClass("glyphicon-remove");
+			}).blur(function(){
+				if(form.userName.value==""||form.userName.value==null){
+					$("#userName").addClass("has-error");
+					$("#userNameSpan").addClass("glyphicon-remove");
+				}
+			});
+		});
+
+		function rs() {
+			$("#userName").removeClass("has-error");
+			$("#userNameSpan").removeClass("glyphicon-remove");
 		}
 	</script>
 </html>

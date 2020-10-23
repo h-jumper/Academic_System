@@ -35,18 +35,18 @@
 							    <label for="inputEmail3" class="col-sm-3 control-label" >学号</label>
 							    <div class="col-sm-7">
 							      <input readonly="readonly" type="number" class="form-control" id="inputEmail3" name="userID" placeholder="请输入学号" value="${student.userID}">
-								  <span id="userIDSpan" class="glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+								  <span id="userIDSpan" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 								</div>
 							  </div>
 							  <div id="userName" class="form-group has-feedback">
-							    <label for="inputPassword3" class="col-sm-3 control-label">姓名</label>
+							    <label for="inputUserName" class="col-sm-3 control-label">姓名</label>
 							    <div class="col-sm-7">
-							      <input type="text" class="form-control" id="inputPassword3" name="userName" placeholder="请输入姓名" value="${student.userName}">
-								  <span id="userNameSpan" class="glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+							      <input id="inputUserName" type="text" class="form-control" name="userName" placeholder="请输入姓名" value="${student.userName}">
+								  <span id="userNameSpan" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 								</div>
 							  </div>
 							  <div class="form-group">
-							    <label for="inputPassword3" class="col-sm-3 control-label">性别</label>
+							    <label class="col-sm-3 control-label">性别</label>
 							    <div class="col-sm-7">
 								    <label class="checkbox-inline">
 										<input type="radio" name="sex" value="男"
@@ -59,21 +59,21 @@
 							    </div>
 							  </div>
 							  <div class="form-group">
-							    <label for="inputPassword3" class="col-sm-3 control-label">出生年份</label>
+							    <label for="inputBirthYear" class="col-sm-3 control-label">出生年份</label>
 							    <div class="col-sm-7">
-								    <input type="date" value="<fmt:formatDate value="${student.birthYear}" dateStyle="medium" pattern="yyyy-MM-dd" />" name="birthYear"/>
+								    <input id="inputBirthYear" type="date" value="<fmt:formatDate value="${student.birthYear}" dateStyle="medium" pattern="yyyy-MM-dd" />" name="birthYear"/>
 							    </div>
 							  </div>
 							  <div class="form-group">
-							    <label for="inputPassword3" class="col-sm-3 control-label" name="grade">入学时间</label>
+							    <label for="grade" class="col-sm-3 control-label" name="grade">入学时间</label>
 							    <div class="col-sm-7">
-								    <input type="date" value="<fmt:formatDate value="${student.grade}" dateStyle="medium" pattern="yyyy-MM-dd" />" name="grade"/>
+								    <input id="grade" type="date" value="<fmt:formatDate value="${student.grade}" dateStyle="medium" pattern="yyyy-MM-dd" />" name="grade"/>
 							    </div>
 							  </div>
 							  <div class="form-group">
-							    <label for="inputPassword3" class="col-sm-3 control-label" name="collegeID">所属院系</label>
+							    <label for="collegeID" class="col-sm-3 control-label" name="collegeID">所属院系</label>
 							    <div class="col-sm-7">
-								    <select class="form-control" name="collegeID" id="college">
+								    <select class="form-control" name="collegeID" id="collegeID">
 										<c:forEach items="${collegeList}" var="item">
 											<option value="${item.collegeID}">${item.collegeName}</option>
 										</c:forEach>
@@ -82,7 +82,7 @@
 							  </div>
 							  <div class="form-group" style="text-align: center">
 								<button class="btn btn-default" type="submit">提交</button>
-								<button class="btn btn-default" type="reset">重置</button>
+								<button class="btn btn-default" type="reset" onclick="rs()">重置</button>
 							  </div>
 						</form>
 				    </div>
@@ -110,23 +110,29 @@
 
 		function check() {
 			var flag = true;
-			if(form.userID.value==""||form.userID.value==null){
-				$("#userID").addClass("has-error");
-				$("#userIDSpan").addClass("glyphicon");
-				flag = false;
-			}else{
-				$("#userID").removeClass("has-error");
-				$("#userIDSpan").removeClass("glyphicon");
-			}
 			if(form.userName.value==""||form.userName.value==null){
 				$("#userName").addClass("has-error");
-				$("#userNameSpan").addClass("glyphicon");
+				$("#userNameSpan").addClass("glyphicon-remove");
 				flag = false;
-			}else{
-				$("#userName").removeClass("has-error");
-				$("#userNameSpan").removeClass("glyphicon");
 			}
 			return flag;
+		}
+
+		$(function(){
+			$("#inputUserName").focus(function(){
+				$("#userName").removeClass("has-error");
+				$("#userNameSpan").removeClass("glyphicon-remove");
+			}).blur(function(){
+				if(form.userName.value==""||form.userName.value==null){
+					$("#userName").addClass("has-error");
+					$("#userNameSpan").addClass("glyphicon-remove");
+				}
+			});
+		});
+
+		function rs() {
+			$("#userName").removeClass("has-error");
+			$("#userNameSpan").removeClass("glyphicon-remove");
 		}
 	</script>
 </html>

@@ -30,23 +30,24 @@
 				<div class="panel-body">
 					<form name="form" class="form-horizontal" role="form" action="/admin/addCourse" id="editfrom" method="post" onsubmit="return check()">
 						<div id="courseID" class="form-group has-feedback">
-							<label for="inputEmail3" class="col-sm-3 control-label">课程号</label>
+							<label for="inputCourseID" class="col-sm-3 control-label">课程号</label>
 							<div class="col-sm-7">
-								<input type="number" class="form-control" id="inputEmail3" name="courseID" placeholder="请输入课程号">
-								<span id="courseIDSpan" class="glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+								<input type="number" class="form-control" id="inputCourseID" name="courseID" placeholder="请输入课程号">
+								<span id="courseIDSpan" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 							</div>
+							<span id="courseIDCheck" class="col-sm-2 form-control-static" style="color: red"></span>
 						</div>
 						<div id="courseName" class="form-group has-feedback">
-							<label for="inputPassword3" class="col-sm-3 control-label">课程名称</label>
+							<label for="inputCourseName" class="col-sm-3 control-label">课程名称</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" id="inputPassword3" name="courseName" placeholder="请输入课程名称">
-								<span id="courseNameSpan" class="glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+								<input type="text" class="form-control" id="inputCourseName" name="courseName" placeholder="请输入课程名称">
+								<span id="courseNameSpan" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="inputPassword3" class="col-sm-3 control-label" name="grade">授课老师编号</label>
+							<label for="teacherID" class="col-sm-3 control-label" name="grade">授课老师编号</label>
 							<div class="col-sm-7">
-								<select class="form-control" name="teacherID">
+								<select id="teacherID" class="form-control" name="teacherID">
 									<c:forEach items="${teacherList}" var="item">
 										<option value="${item.userID}">${item.userName}</option>
 									</c:forEach>
@@ -54,30 +55,30 @@
 							</div>
 						</div>
 						<div id="courseTime" class="form-group has-feedback">
-							<label for="inputPassword3" class="col-sm-3 control-label">上课时间</label>
+							<label for="inputCourseTime" class="col-sm-3 control-label">上课时间</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" name="courseTime" placeholder="请输入上课时间">
-								<span id="courseTimeSpan" class="glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+								<input id="inputCourseTime" type="text" class="form-control" name="courseTime" placeholder="请输入上课时间">
+								<span id="courseTimeSpan" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 							</div>
 						</div>
 						<div id="classRoom" class="form-group has-feedback">
-							<label for="inputPassword3" class="col-sm-3 control-label">上课地点</label>
+							<label for="inputClassRoom" class="col-sm-3 control-label">上课地点</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" name="classRoom" placeholder="上课地点">
-								<span id="classRoomSpan" class="glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+								<input id="inputClassRoom" type="text" class="form-control" name="classRoom" placeholder="上课地点">
+								<span id="classRoomSpan" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 							</div>
 						</div>
 						<div id="courseWeek" class="form-group has-feedback">
-							<label for="inputEmail3" class="col-sm-3 control-label">周数</label>
+							<label for="inputCourseWeek" class="col-sm-3 control-label">周数</label>
 							<div class="col-sm-7">
-								<input type="number" class="form-control" name="courseWeek" placeholder="请输入周数">
-								<span id="courseWeekSpan" class="glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+								<input id="inputCourseWeek" type="number" class="form-control" name="courseWeek" placeholder="请输入周数">
+								<span id="courseWeekSpan" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="inputPassword3" class="col-sm-3 control-label" name="courseType">课程的类型</label>
+							<label for="inputCourseType" class="col-sm-3 control-label" name="courseType">课程的类型</label>
 							<div class="col-sm-7">
-								<select class="form-control" name="courseType">
+								<select id="inputCourseType" class="form-control" name="courseType">
 									<option value="必修课">必修课</option>
 									<option value="选修课">选修课</option>
 									<option value="公共课">公共课</option>
@@ -85,9 +86,9 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="inputPassword3" class="col-sm-3 control-label" name="collegeID">所属院系</label>
+							<label for="inputCollegeID" class="col-sm-3 control-label" name="collegeID">所属院系</label>
 							<div class="col-sm-7">
-								<select class="form-control" name="collegeID">
+								<select id="inputCollegeID" class="form-control" name="collegeID">
 									<c:forEach items="${collegeList}" var="item">
 										<option value="${item.collegeID}">${item.collegeName}</option>
 									</c:forEach>
@@ -95,15 +96,15 @@
 							</div>
 						</div>
 						<div id="score" class="form-group has-feedback">
-							<label for="inputEmail3" class="col-sm-3 control-label">学分</label>
+							<label for="inputScore" class="col-sm-3 control-label">学分</label>
 							<div class="col-sm-7">
-								<input type="number" class="form-control" name="score" placeholder="请输入学分">
-								<span id="scoreSpan" class="glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+								<input id="inputScore" type="number" class="form-control" name="score" placeholder="请输入学分">
+								<span id="scoreSpan" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 							</div>
 						</div>
 						<div class="form-group" style="text-align: center">
 							<button class="btn btn-default" type="submit">提交</button>
-							<button class="btn btn-default" type="reset">重置</button>
+							<button class="btn btn-default" type="reset" onclick="rs()">重置</button>
 						</div>
 					</form>
 				</div>
@@ -126,53 +127,131 @@
 		var flag = true;
 		if(form.courseID.value==""||form.courseID.value==null){
 			$("#courseID").addClass("has-error");
-			$("#courseIDSpan").addClass("glyphicon");
+			$("#courseIDSpan").addClass("glyphicon-remove");
 			flag = false;
-		}else{
-			$("#courseID").removeClass("has-error");
-			$("#courseIDSpan").removeClass("glyphicon");
 		}
 		if(form.courseName.value==""||form.courseName.value==null){
 			$("#courseName").addClass("has-error");
-			$("#courseNameSpan").addClass("glyphicon");
+			$("#courseNameSpan").addClass("glyphicon-remove");
 			flag = false;
-		}else{
-			$("#courseName").removeClass("has-error");
-			$("#courseNameSpan").removeClass("glyphicon");
 		}
 		if(form.classRoom.value==""||form.classRoom.value==null){
 			$("#classRoom").addClass("has-error");
-			$("#classRoomSpan").addClass("glyphicon");
+			$("#classRoomSpan").addClass("glyphicon-remove");
 			flag = false;
-		}else{
-			$("#classRoom").removeClass("has-error");
-			$("#classRoomSpan").removeClass("glyphicon");
 		}
 		if(form.courseTime.value==""||form.courseTime.value==null){
 			$("#courseTime").addClass("has-error");
-			$("#courseTimeSpan").addClass("glyphicon");
+			$("#courseTimeSpan").addClass("glyphicon-remove");
 			flag = false;
-		}else{
-			$("#courseTime").removeClass("has-error");
-			$("#courseTimeSpan").removeClass("glyphicon");
 		}
 		if(form.courseWeek.value==""||form.courseWeek.value==null){
 			$("#courseWeek").addClass("has-error");
-			$("#courseWeekSpan").addClass("glyphicon");
+			$("#courseWeekSpan").addClass("glyphicon-remove");
 			flag = false;
-		}else{
-			$("#courseWeek").removeClass("has-error");
-			$("#courseWeekSpan").removeClass("glyphicon");
 		}
 		if(form.score.value==""||form.score.value==null){
 			$("#score").addClass("has-error");
-			$("#scoreSpan").addClass("glyphicon");
+			$("#scoreSpan").addClass("glyphicon-remove");
 			flag = false;
-		}else{
-			$("#score").removeClass("has-error");
-			$("#scoreSpan").removeClass("glyphicon");
 		}
+		if($("#courseID").hasClass("has-error"))
+			flag = false;
 		return flag;
+	}
+
+	$(function(){
+		$("#inputCourseID").focus(function () {
+			$("#courseID").removeClass("has-error has-success");
+			$("#courseIDSpan").removeClass("glyphicon-remove glyphicon-ok");
+			$("#courseIDCheck").text("");
+		}).blur(function () {
+			if(form.courseID.value==""||form.courseID.value==null){
+				$("#courseID").addClass("has-error");
+				$("#courseIDSpan").addClass("glyphicon-remove");
+			}else{
+				$.get({
+					url:"/admin/addCourseCheck",
+					data:{"courseID":$("#inputCourseID").val()},
+					success:function (data) {
+						if(data=="true"){
+							$("#courseID").addClass("has-success");
+							$("#courseIDSpan").addClass("glyphicon-ok");
+						}else{
+							$("#courseID").addClass("has-error");
+							$("#courseIDSpan").addClass("glyphicon-remove");
+							$("#courseIDCheck").text("课程号重复");
+						}
+					}
+				})
+			}
+		});
+
+		$("#inputCourseName").focus(function () {
+			$("#courseName").removeClass("has-error");
+			$("#courseNameSpan").removeClass("glyphicon-remove");
+		}).blur(function () {
+			if(form.courseName.value==""||form.courseName.value==null){
+				$("#courseName").addClass("has-error");
+				$("#courseNameSpan").addClass("glyphicon-remove");
+			}
+		});
+
+		$("#inputClassRoom").focus(function () {
+			$("#classRoom").removeClass("has-error");
+			$("#classRoomSpan").removeClass("glyphicon-remove");
+		}).blur(function () {
+			if(form.classRoom.value==""||form.classRoom.value==null){
+				$("#classRoom").addClass("has-error");
+				$("#classRoomSpan").addClass("glyphicon-remove");
+			}
+		});
+
+		$("#inputCourseTime").focus(function () {
+			$("#courseTime").removeClass("has-error");
+			$("#courseTimeSpan").removeClass("glyphicon-remove");
+		}).blur(function () {
+			if(form.courseTime.value==""||form.courseTime.value==null){
+				$("#courseTime").addClass("has-error");
+				$("#courseTimeSpan").addClass("glyphicon-remove");
+			}
+		});
+
+		$("#inputCourseWeek").focus(function () {
+			$("#courseWeek").removeClass("has-error");
+			$("#courseWeekSpan").removeClass("glyphicon-remove");
+		}).blur(function () {
+			if(form.courseWeek.value==""||form.courseWeek.value==null){
+				$("#courseWeek").addClass("has-error");
+				$("#courseWeekSpan").addClass("glyphicon-remove");
+			}
+		});
+
+		$("#inputScore").focus(function () {
+			$("#score").removeClass("has-error");
+			$("#scoreSpan").removeClass("glyphicon-remove");
+		}).blur(function () {
+			if(form.score.value==""||form.score.value==null){
+				$("#score").addClass("has-error");
+				$("#scoreSpan").addClass("glyphicon-remove");
+			}
+		})
+	});
+
+	function rs() {
+		$("#courseID").removeClass("has-error has-success");
+		$("#courseIDSpan").removeClass("glyphicon-remove glyphicon-ok");
+		$("#courseIDCheck").text("");
+		$("#courseName").removeClass("has-error");
+		$("#courseNameSpan").removeClass("glyphicon-remove");
+		$("#classRoom").removeClass("has-error");
+		$("#classRoomSpan").removeClass("glyphicon-remove");
+		$("#courseTime").removeClass("has-error");
+		$("#courseTimeSpan").removeClass("glyphicon-remove");
+		$("#courseWeek").removeClass("has-error");
+		$("#courseWeekSpan").removeClass("glyphicon-remove");
+		$("#score").removeClass("has-error");
+		$("#scoreSpan").removeClass("glyphicon-remove");
 	}
 
 </script>

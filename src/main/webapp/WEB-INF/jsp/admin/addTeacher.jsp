@@ -30,21 +30,22 @@
 				    <div class="panel-body">
 						<form name="form" class="form-horizontal" role="form" action="/admin/addTeacher" onsubmit="return check()" id="editfrom" method="post">
 							<div id="userID" class="form-group has-feedback">
-							    <label for="inputEmail3" class="col-sm-3 control-label">工号</label>
+							    <label for="inputUserID" class="col-sm-3 control-label">工号</label>
 							    <div class="col-sm-7">
-							      <input type="number" class="form-control" id="inputEmail3" name="userID" placeholder="请输入工号">
-								  <span id="userIDSpan" class="glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+							      <input type="number" class="form-control" id="inputUserID" name="userID" placeholder="请输入工号">
+								  <span id="userIDSpan" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 							    </div>
-							  </div>
+								<span id="userIDCheck" class="col-sm-2 form-control-static" style="color: red"></span>
+							</div>
 							  <div id="userName" class="form-group has-feedback">
-							    <label for="inputPassword3" class="col-sm-3 control-label">姓名</label>
+							    <label for="inputUserName" class="col-sm-3 control-label">姓名</label>
 							    <div class="col-sm-7">
-							      <input type="text" class="form-control" id="inputPassword3" name="userName" placeholder="请输入姓名">
-									<span id="userNameSpan" class="glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+							      <input type="text" class="form-control" id="inputUserName" name="userName" placeholder="请输入姓名">
+									<span id="userNameSpan" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 								</div>
 							  </div>
 							  <div class="form-group">
-							    <label for="inputPassword3" class="col-sm-3 control-label">性别</label>
+							    <label class="col-sm-3 control-label">性别</label>
 							    <div class="col-sm-7">
 								    <label class="checkbox-inline">
 									   	<input type="radio" name="sex" value="男" checked>男
@@ -55,15 +56,15 @@
 							    </div>
 							  </div>
 							  <div class="form-group">
-							    <label for="inputPassword3" class="col-sm-3 control-label">出生年份</label>
+							    <label for="inputBirthYear" class="col-sm-3 control-label">出生年份</label>
 							    <div class="col-sm-7">
-								    <input type="date" value="1996-09-02" name="birthYear"/>
+								    <input id="inputBirthYear" type="date" value="1996-09-02" name="birthYear"/>
 							    </div>
 							  </div>
 							  <div class="form-group">
-								<label for="inputPassword3" class="col-sm-3 control-label" name="degree">学历</label>
+								<label for="degree" class="col-sm-3 control-label" name="degree">学历</label>
 								<div class="col-sm-7">
-									<select class="form-control" name="degree">
+									<select id="degree" class="form-control" name="degree">
 										<option value="本科">本科</option>
 										<option value="硕士">硕士</option>
 										<option value="博士">博士</option>
@@ -71,9 +72,9 @@
 								</div>
 							  </div>
 							<div class="form-group">
-								<label for="inputPassword3" class="col-sm-3 control-label" name="title">职称</label>
+								<label for="title" class="col-sm-3 control-label" name="title">职称</label>
 								<div class="col-sm-7">
-									<select class="form-control" name="title">
+									<select id="title" class="form-control" name="title">
 										<option value="普通教师">普通教师</option>
 										<option value="助教">助教</option>
 										<option value="讲师">讲师</option>
@@ -83,15 +84,15 @@
 								</div>
 							</div>
 							  <div class="form-group">
-							    <label for="inputPassword3" class="col-sm-3 control-label" name="grade">入职时间</label>
+							    <label for="grade" class="col-sm-3 control-label" name="grade">入职时间</label>
 							    <div class="col-sm-7">
-								    <input type="date" value="2015-09-02" name="grade"/>
+								    <input id="grade" type="date" value="2015-09-02" name="grade"/>
 							    </div>
 							  </div>
 							  <div class="form-group">
-							    <label for="inputPassword3" class="col-sm-3 control-label" name="grade">所属院系</label>
+							    <label for="collegeID" class="col-sm-3 control-label" name="grade">所属院系</label>
 							    <div class="col-sm-7">
-								    <select class="form-control" name="collegeID">
+								    <select id="collegeID" class="form-control" name="collegeID">
 										<c:forEach items="${collegeList}" var="item">
 											<option value="${item.collegeID}">${item.collegeName}</option>
 										</c:forEach>
@@ -100,7 +101,7 @@
 							  </div>
 							  <div class="form-group" style="text-align: center">
 								<button class="btn btn-default" type="submit">提交</button>
-								<button class="btn btn-default" type="reset">重置</button>
+								<button class="btn btn-default" type="reset" onclick="rs()">重置</button>
 							  </div>
 						</form>
 				    </div>
@@ -123,21 +124,63 @@
 			var flag = true;
 			if(form.userID.value==""||form.userID.value==null){
 				$("#userID").addClass("has-error");
-				$("#userIDSpan").addClass("glyphicon");
+				$("#userIDSpan").addClass("glyphicon-remove");
 				flag = false;
-			}else{
-				$("#userID").removeClass("has-error");
-				$("#userIDSpan").removeClass("glyphicon");
 			}
 			if(form.userName.value==""||form.userName.value==null){
 				$("#userName").addClass("has-error");
-				$("#userNameSpan").addClass("glyphicon");
+				$("#userNameSpan").addClass("glyphicon-remove");
 				flag = false;
-			}else{
-				$("#userName").removeClass("has-error");
-				$("#userNameSpan").removeClass("glyphicon");
 			}
+			if($("#userID").hasClass("has-error"))
+				flag = false;
 			return flag;
+		}
+
+		$(function(){
+			$("#inputUserID").focus(function(){
+				$("#userID").removeClass("has-error has-success");
+				$("#userIDSpan").removeClass("glyphicon-remove glyphicon-ok");
+				$("#userIDCheck").text("");
+			}).blur(function(){
+				if(form.userID.value==""||form.userID.value==null){
+					$("#userID").addClass("has-error");
+					$("#userIDSpan").addClass("glyphicon-remove");
+				}else{
+					$.get({
+						url:"/admin/addTeacherCheck",
+						data:{"userID":$("#inputUserID").val()},
+						success:function (data) {
+							if(data=="true"){
+								$("#userID").addClass("has-success");
+								$("#userIDSpan").addClass("glyphicon-ok");
+							}else{
+								$("#userID").addClass("has-error");
+								$("#userIDSpan").addClass("glyphicon-remove");
+								$("#userIDCheck").text("工号重复");
+							}
+						}
+					})
+				}
+			});
+
+			$("#inputUserName").focus(function(){
+				$("#userName").removeClass("has-error");
+				$("#userNameSpan").removeClass("glyphicon-remove");
+			}).blur(function(){
+				if(form.userName.value==""||form.userName.value==null){
+					$("#userName").addClass("has-error");
+					$("#userNameSpan").addClass("glyphicon-remove");
+				}
+			});
+		});
+
+		function rs() {
+			$("#userID").removeClass("has-error has-success");
+			$("#userIDSpan").removeClass("glyphicon-remove glyphicon-ok");
+			$("#userIDCheck").text("");
+			$("#userName").removeClass("has-error");
+			$("#userNameSpan").removeClass("glyphicon-remove");
 		}
 	</script>
 </html>
