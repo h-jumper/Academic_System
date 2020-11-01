@@ -59,4 +59,59 @@ public class CourseServiceImpl implements CourseService {
     public int countCourseByName(String courseName) {
         return courseMapper.countCourseByName(courseName);
     }
+
+    @Override
+    public List<Course> selectCourseByTeacherID(int teacherID) {
+        return courseMapper.selectCourseByTeacherID(teacherID);
+    }
+
+    @Override
+    public List<Course> selectNoChooseCourse(String studentID, Page page) {
+        return courseMapper.selectNoChooseCourse(studentID,page);
+    }
+
+    @Override
+    public int countNoChooseCourse(String studentID) {
+        return courseMapper.countNoChooseCourse(studentID);
+    }
+
+    @Override
+    public List<Course> selectStudentChooseCourse(String studentID, Page page) {
+        return courseMapper.selectStudentChooseCourse(studentID,page);
+    }
+
+    @Override
+    public int countStudentChooseCourse(String studentID) {
+        return courseMapper.countStudentChooseCourse(studentID);
+    }
+
+    @Override
+    public List<Course> selectStudentFinishCourse(String studentID, Page page) {
+        return courseMapper.selectStudentFinishCourse(studentID, page);
+    }
+
+    @Override
+    public int countStudentFinishCourse(String studentID) {
+        return courseMapper.countStudentFinishCourse(studentID);
+    }
+
+    @Override
+    public List<Course> selectNoChooseCourseByName(String studentID, String courseName) {
+        return courseMapper.selectNoChooseCourseByName(studentID, courseName);
+    }
+
+    @Override
+    public int countCourseByTeacherID(String userID) {
+        return courseMapper.countCourseByTeacherID(userID);
+    }
+
+    @Override
+    public List<Course> selectTeacherCourse(String userID, Page page) {
+        return courseMapper.selectTeacherCourse(userID, page);
+    }
+
+    @Override
+    public List<Course> selectTeacherCourseByName(String userID, String courseName) {
+        return courseMapper.selectTeacherCourseByName(userID, courseName);
+    }
 }

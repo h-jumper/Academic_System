@@ -69,7 +69,7 @@
 									<td>${item.collegeName}</td>
 									<td>
 										<button class="btn btn-default btn-xs btn-info" onClick="location.href='/admin/editTeacher?id=${item.userID}'">修改</button>
-										<button class="btn btn-default btn-xs btn-danger btn-primary" onClick="location.href='/admin/removeTeacher?id=${item.userID}'">删除</button>
+										<button class="btn btn-default btn-xs btn-danger btn-primary" onClick="deleteTeacher(${item.userID})">删除</button>
 										<!--弹出框-->
 									</td>
 								</tr>
@@ -123,14 +123,20 @@
 			};
         </c:if>
 
-        function confirmd() {
-            var msg = "您真的确定要删除吗？！";
-            if (confirm(msg)==true){
-                return true;
-            }else{
-                return false;
-            }
-        }
+		function deleteTeacher(userID){
+			$.get({
+				url:"/admin/removeTeacherCheck",
+				data:{"userID":userID},
+				cache:false,
+				success:function (data) {
+					if(data=="true"){
+						alert("该老师有课程需要教授");
+					}else{
+						window.location.href="/admin/removeTeacher?id="+userID;
+					}
+				}
+			})
+		}
 
         $("#sub").click(function () {
             $("#form1").submit();

@@ -25,6 +25,9 @@ public class UserLoginServiceImpl implements UserLoginService {
 
     @Override
     public int addUserLogin(UserLogin userLogin) {
+        int maxUserID = userLoginMapper.selectMaxUserID();
+        userLogin.setUserID(maxUserID+1);
+        userLogin.setPassword("123");
         return userLoginMapper.addUserLogin(userLogin);
     }
 
@@ -49,5 +52,10 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Override
     public int deleteUserLogin(int userID) {
         return userLoginMapper.deleteUserLogin(userID);
+    }
+
+    @Override
+    public int deleteUserLoginByUserName(String userName) {
+        return userLoginMapper.deleteUserLoginByUserName(userName);
     }
 }

@@ -13,7 +13,7 @@
     </select>
 
     <insert id="addUserLogin" parameterType="com.jumper.pojo.UserLogin">
-        insert into userlogin(userName,password,role) values(#{userName},#{password},#{role})
+        insert into userlogin values(#{userID},#{userName},#{password},#{role})
     </insert>
 
     <update id="updateUserLoginByID" parameterType="com.jumper.pojo.UserLogin">
@@ -26,6 +26,14 @@
 
     <delete id="deleteUserLogin" parameterType="int">
         delete from userlogin where userID=#{userID}
+    </delete>
+
+    <select id="selectMaxUserID" resultType="int">
+        SELECT MAX(userID) FROM userlogin
+    </select>
+
+    <delete id="deleteUserLoginByUserName" parameterType="com.jumper.pojo.UserLogin">
+        delete from userlogin where userName=#{userName}
     </delete>
 
 </mapper>

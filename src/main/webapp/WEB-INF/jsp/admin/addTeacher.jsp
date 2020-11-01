@@ -150,6 +150,7 @@
 					$.get({
 						url:"/admin/addTeacherCheck",
 						data:{"userID":$("#inputUserID").val()},
+						cache:false,
 						success:function (data) {
 							if(data=="true"){
 								$("#userID").addClass("has-success");

@@ -20,4 +20,8 @@ public interface UserLoginMapper {
     public int updateUserLoginByName(UserLogin userLogin);
 
     public int deleteUserLogin(int userID);
+
+    public int selectMaxUserID();
+
+    public int deleteUserLoginByUserName(String userName);
 }

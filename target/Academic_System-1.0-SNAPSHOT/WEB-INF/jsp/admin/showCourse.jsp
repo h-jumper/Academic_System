@@ -70,7 +70,7 @@
 									<td>${item.score}</td>
 									<td>
 										<button class="btn btn-default btn-xs btn-info" onClick="location.href='/admin/editCourse?id=${item.courseID}'">修改</button>
-										<button class="btn btn-default btn-xs btn-danger btn-primary" onClick="location.href='/admin/removeCourse?id=${item.courseID}'">删除</button>
+										<button class="btn btn-default btn-xs btn-danger btn-primary" onClick="deleteCourse(${item.courseID})">删除</button>
 										<!--弹出框-->
 									</td>
 								</tr>
@@ -124,14 +124,20 @@
         };
         </c:if>
 
-        function confirmd() {
-            var msg = "您真的确定要删除吗？！";
-            if (confirm(msg)==true){
-                return true;
-            }else{
-                return false;
-            }
-        }
+		function deleteCourse(courseID){
+			$.get({
+				url:"/admin/removeCourseCheck",
+				data:{"courseID":courseID},
+				cache:false,
+				success:function (data) {
+					if(data=="true"){
+						alert("该课程已有学生选课");
+					}else{
+						window.location.href="/admin/removeCourse?id="+courseID;
+					}
+				}
+			})
+		}
 
         $("#sub").click(function () {
             $("#form1").submit();

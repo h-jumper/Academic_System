@@ -14,4 +14,6 @@ public interface UserLoginService {
     public boolean updateUserLoginByName(UserLogin userLogin);
 
     public int deleteUserLogin(int userID);
+
+    public int deleteUserLoginByUserName(String userName);
 }

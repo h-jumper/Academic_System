@@ -65,7 +65,7 @@
 									<td>${item.collegeName}</td>
 									<td>
 										<button class="btn btn-default btn-xs btn-info" onClick="location.href='/admin/editStudent?id=${item.userID}'">修改</button>
-										<button class="btn btn-default btn-xs btn-danger btn-primary" onClick="location.href='/admin/removeStudent?id=${item.userID}'">删除</button>
+										<button class="btn btn-default btn-xs btn-danger btn-primary" onClick="deleteStudent(${item.userID})">删除</button>
 										<!--弹出框-->
 									</td>
 								</tr>
@@ -109,14 +109,21 @@
 	<script type="text/javascript">
 		$("#nav li:nth-child(2)").addClass("active");
 
-        function confirmd() {
-            var msg = "您真的确定要删除吗？！";
-            if (confirm(msg)==true){
-                return true;
-            }else{
-                return false;
-            }
-        };
+
+		function deleteStudent(userID){
+			$.get({
+				url:"/admin/removeStudentCheck",
+				data:{"userID":userID},
+				cache:false,
+				success:function (data) {
+					if(data=="true"){
+						alert("该学生已有选课");
+					}else{
+						window.location.href="/admin/removeStudent?id="+userID;
+					}
+				}
+			})
+		}
 
         $("#sub").click(function () {
             $("#form1").submit();

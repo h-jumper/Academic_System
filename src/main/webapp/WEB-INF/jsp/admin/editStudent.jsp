@@ -32,9 +32,9 @@
 				    <div class="panel-body">
 						<form name="form" class="form-horizontal" role="form" action="/admin/editStudent" id="editfrom" method="post" onsubmit="return check()">
 							  <div id="userID" class="form-group has-feedback">
-							    <label for="inputEmail3" class="col-sm-3 control-label" >学号</label>
+							    <label for="inputUserID" class="col-sm-3 control-label" >学号</label>
 							    <div class="col-sm-7">
-							      <input readonly="readonly" type="number" class="form-control" id="inputEmail3" name="userID" placeholder="请输入学号" value="${student.userID}">
+							      <input readonly="readonly" type="number" class="form-control" id="inputUserID" name="userID" placeholder="请输入学号" value="${student.userID}">
 								  <span id="userIDSpan" class="glyphicon form-control-feedback" aria-hidden="true"></span>
 								</div>
 							  </div>

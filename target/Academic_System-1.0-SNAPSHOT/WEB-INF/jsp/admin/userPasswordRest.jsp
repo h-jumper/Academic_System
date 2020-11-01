@@ -107,6 +107,7 @@
                 $.get({
                     url: "/admin/usePasswordRestCheck",
                     data: {"userName": $("#inputUserName").val()},
+                    cache:false,
                     success: function (data) {
                         if (data == "true") {
                             $("#userName").addClass("has-success");

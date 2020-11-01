@@ -173,6 +173,7 @@
 				$.get({
 					url:"/admin/addCourseCheck",
 					data:{"courseID":$("#inputCourseID").val()},
+					cache:false,
 					success:function (data) {
 						if(data=="true"){
 							$("#courseID").addClass("has-success");

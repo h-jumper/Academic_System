@@ -12,6 +12,21 @@ public class Course {
     private String courseType;
     private int collegeID;
     private int score;
+    private int mark;
+
+    public Course(int courseID, String courseName, int teacherID, String teacherName, String courseTime, String classRoom, int courseWeek, String courseType, int collegeID, int score, int mark) {
+        this.courseID = courseID;
+        this.courseName = courseName;
+        this.teacherID = teacherID;
+        this.teacherName = teacherName;
+        this.courseTime = courseTime;
+        this.classRoom = classRoom;
+        this.courseWeek = courseWeek;
+        this.courseType = courseType;
+        this.collegeID = collegeID;
+        this.score = score;
+        this.mark = mark;
+    }
 
     @Override
     public String toString() {
@@ -26,7 +41,16 @@ public class Course {
                 ", courseType='" + courseType + '\'' +
                 ", collegeID=" + collegeID +
                 ", score=" + score +
+                ", mark=" + mark +
                 '}';
+    }
+
+    public int getMark() {
+        return mark;
+    }
+
+    public void setMark(int mark) {
+        this.mark = mark;
     }
 
     public String getTeacherName() {

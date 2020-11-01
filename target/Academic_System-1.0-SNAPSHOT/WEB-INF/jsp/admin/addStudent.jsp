@@ -128,6 +128,7 @@
                 $.get({
                     url: "/admin/addStudentCheck",
                     data: {"userID": $("#inputUserID").val()},
+                    cache:false,
                     success: function (data) {
                         if (data == "true") {
                             $("#userID").addClass("has-success");

@@ -2,6 +2,8 @@ package com.jumper.controller;
 
 import com.jumper.pojo.*;
 import com.jumper.service.*;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,9 @@ public class AdminController {
 
     @Autowired
     UserLoginService userLoginService;
+
+    @Autowired
+    SelectedCourseService selectedCourseService;
 
     //========================课程============================
     @RequestMapping("/admin/showCourse")
@@ -104,6 +109,16 @@ public class AdminController {
         return "redirect:/admin/showCourse";
     }
 
+    @RequestMapping("/admin/removeCourseCheck")
+    @ResponseBody
+    public String removeCourseCheck(int courseID){
+        List<StudentMark> studentMarks = selectedCourseService.selectStudentMarkByCourseID(courseID);
+        if (studentMarks.isEmpty())
+            return "false";
+        else
+            return "true";
+    }
+
     @RequestMapping("/admin/selectCourse")
     public String selectCourse(Model model,String courseName){
         List<Course> courseList = courseService.selectCourseByName(courseName);
@@ -137,9 +152,13 @@ public class AdminController {
 
     @PostMapping("/admin/addStudent")
     public String addStudent(Model model,Student student){
-        if (studentService.addStudent(student))
+        if (studentService.addStudent(student)) {
+            UserLogin userLogin = new UserLogin();
+            userLogin.setRole(2);
+            userLogin.setUserName(Integer.toString(student.getUserID()));
+            userLoginService.addUserLogin(userLogin);
             return "redirect:/admin/showStudent";
-        else{
+        }else{
             model.addAttribute("message","学号重复");
             return "error";
         }
@@ -148,8 +167,8 @@ public class AdminController {
     @RequestMapping("/admin/addStudentCheck")
     @ResponseBody
     public String addStudentCheck(int userID){
-        Student student = studentService.selectStudentByID(userID);
-        if (student!=null)
+        UserLogin userLogin = userLoginService.selectUserLoginByName(String.valueOf(userID));
+        if (userLogin!=null)
             return "false";
         else
             return "true";
@@ -171,9 +190,20 @@ public class AdminController {
     }
 
     @GetMapping("/admin/removeStudent")
-    public String removeStudent(int id){
+    public String removeStudent(Model model,int id){
         studentService.deleteStudent(id);
+        userLoginService.deleteUserLoginByUserName(String.valueOf(id));
         return "redirect:/admin/showStudent";
+    }
+
+    @RequestMapping("/admin/removeStudentCheck")
+    @ResponseBody
+    public String removeStudentCheck(int userID){
+        int count = selectedCourseService.countStudentChoose(userID);
+        if (count==0)
+            return "false";
+        else
+            return "true";
     }
 
     @RequestMapping("/admin/selectStudent")
@@ -209,9 +239,13 @@ public class AdminController {
 
     @PostMapping("/admin/addTeacher")
     public String addTeacher(Model model,Teacher teacher){
-        if (teacherService.addTeacher(teacher))
+        if (teacherService.addTeacher(teacher)) {
+            UserLogin userLogin = new UserLogin();
+            userLogin.setRole(1);
+            userLogin.setUserName(Integer.toString(teacher.getUserID()));
+            userLoginService.addUserLogin(userLogin);
             return "redirect:/admin/showTeacher";
-        else{
+        }else{
             model.addAttribute("message","工号重复");
             return "error";
         }
@@ -220,8 +254,8 @@ public class AdminController {
     @RequestMapping("/admin/addTeacherCheck")
     @ResponseBody
     public String addTeacherCheck(int userID){
-        Teacher teacher = teacherService.selectTeacherByID(userID);
-        if (teacher!=null)
+        UserLogin userLogin = userLoginService.selectUserLoginByName(String.valueOf(userID));
+        if (userLogin!=null)
             return "false";
         else
             return "true";
@@ -244,12 +278,23 @@ public class AdminController {
 
     @GetMapping("/admin/removeTeacher")
     public String removeTeacher(Model model,int id){
-        if (teacherService.deleteTeacher(id))
+        if (teacherService.deleteTeacher(id)) {
+            userLoginService.deleteUserLoginByUserName(String.valueOf(id));
             return "redirect:/admin/showTeacher";
-        else{
+        } else{
             model.addAttribute("message","请先删除此老师的课程");
             return "error";
         }
+    }
+
+    @RequestMapping("/admin/removeTeacherCheck")
+    @ResponseBody
+    public String removeTeacherCheck(int userID){
+        List<Course> courseList = courseService.selectCourseByTeacherID(userID);
+        if (courseList.isEmpty())
+            return "false";
+        else
+            return "true";
     }
 
     @RequestMapping("/admin/selectTeacher")
@@ -267,6 +312,8 @@ public class AdminController {
 
     @PostMapping("/admin/userPasswordRest")
     public String UserPasswordRest(Model model,UserLogin userLogin){
+        UserLogin user = userLoginService.selectUserLoginByName(userLogin.getUserName());
+        userLogin.setRole(user.getRole());
         boolean flag = userLoginService.updateUserLoginByName(userLogin);
         if (flag)
             return "admin/userPasswordRest";
@@ -292,8 +339,9 @@ public class AdminController {
     }
 
     @PostMapping("/admin/passwordRest")
-    public String passwordRest(Model model,HttpSession session,String oldPassword,String password){
-        String userName = (String) session.getAttribute("userName");
+    public String passwordRest(Model model,String oldPassword,String password){
+        Subject subject = SecurityUtils.getSubject();
+        String userName = (String) subject.getPrincipal();
         UserLogin userLogin = userLoginService.selectUserLoginByName(userName);
         if (userLogin.getPassword().equals(oldPassword)){
             UserLogin login = new UserLogin();
@@ -310,8 +358,9 @@ public class AdminController {
 
     @RequestMapping("/admin/passwordRestCheck")
     @ResponseBody
-    public String passwordRestCheck(String oldPassword,HttpSession session){
-        String userName = (String) session.getAttribute("userName");
+    public String passwordRestCheck(String oldPassword){
+        Subject subject = SecurityUtils.getSubject();
+        String userName = (String) subject.getPrincipal();
         UserLogin userLogin = userLoginService.selectUserLoginByName(userName);
         if (userLogin.getPassword().equals(oldPassword))
             return "true";

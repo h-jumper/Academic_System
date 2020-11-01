@@ -32,6 +32,8 @@
     这里扫描 controller，指定controller的包-->
     <context:component-scan base-package="com.jumper.controller"/>
 
+<!--    <bean class="com.jumper.config.CustomExceptionResolver"/>-->
+
     <!--视图解析器-->
     <!--需要配置解析jsp的视图解析器
     jsp解析，默认使用jstl标签解析-->

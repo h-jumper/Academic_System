@@ -109,6 +109,7 @@
                 $.get({
                     url: "/admin/passwordRestCheck",
                     data: {"oldPassword": $("#inputOldPassword").val()},
+                    cache:false,
                     success: function (data) {
                         if (data == "true") {
                             $("#oldPassword").addClass("has-success");
@@ -130,22 +131,23 @@
             if (form.password.value == "" || form.password.value == null) {
                 $("#password").addClass("has-error");
                 $("#passwordSpan").addClass("glyphicon-remove");
-            }else if (form.password2.value != "" && form.password2.value != null){
-                if(form.password.value == form.password2.value){
+            } else if (form.password2.value != "" && form.password2.value != null) {
+                if (form.password.value == form.password2.value) {
                     $("#password").removeClass("has-error has-success").addClass("has-success");
                     $("#passwordSpan").removeClass("glyphicon-remove glyphicon-ok").addClass("glyphicon-ok");
                     $("#password2").removeClass("has-error has-success").addClass("has-success");
                     $("#password2Span").removeClass("glyphicon-remove glyphicon-ok").addClass("glyphicon-ok");
                     $("#passwordCheck").text("");
                     $("#password2Check").text("");
-                }else{
+                } else {
                     $("#password").removeClass("has-error has-success").addClass("has-error");
                     $("#passwordSpan").removeClass("glyphicon-remove glyphicon-ok").addClass("glyphicon-remove");
                     $("#password2").removeClass("has-error has-success").addClass("has-error");
                     $("#password2Span").removeClass("glyphicon-remove glyphicon-ok").addClass("glyphicon-remove");
                     $("#passwordCheck").text("两次密码不一致");
                     $("#password2Check").text("两次密码不一致");
-                }x
+                }
+                x
             }
         });
 
@@ -156,15 +158,15 @@
             if (form.password2.value == "" || form.password2.value == null) {
                 $("#password2").addClass("has-error");
                 $("#password2Span").addClass("glyphicon-remove");
-            }else if (form.password.value != "" && form.password.value != null){
-                if(form.password.value == form.password2.value){
+            } else if (form.password.value != "" && form.password.value != null) {
+                if (form.password.value == form.password2.value) {
                     $("#password").removeClass("has-error has-success").addClass("has-success");
                     $("#passwordSpan").removeClass("glyphicon-remove glyphicon-ok").addClass("glyphicon-ok");
                     $("#password2").removeClass("has-error has-success").addClass("has-success");
                     $("#password2Span").removeClass("glyphicon-remove glyphicon-ok").addClass("glyphicon-ok");
                     $("#passwordCheck").text("");
                     $("#password2Check").text("");
-                }else{
+                } else {
                     $("#password").removeClass("has-error has-success").addClass("has-error");
                     $("#passwordSpan").removeClass("glyphicon-remove glyphicon-ok").addClass("glyphicon-remove");
                     $("#password2").removeClass("has-error has-success").addClass("has-error");

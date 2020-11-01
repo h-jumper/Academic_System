@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jumper.mapper.SelectedCourseMapper">
+
+    <insert id="insertSelectedCourse" parameterType="com.jumper.pojo.SelectedCourse">
+        INSERT INTO selectedcourse VALUE(#{courseID},#{studentID},NULL)
+    </insert>
+
+    <delete id="deleteSelectedCourse" parameterType="com.jumper.pojo.SelectedCourse">
+        delete from selectedcourse where courseID=#{courseID} and studentID=#{studentID}
+    </delete>
+
+    <select id="selectStudentMarkByCourseID" resultType="com.jumper.pojo.StudentMark">
+        SELECT student.userID userID,student.userName userName,selectedcourse.mark mark,courseID
+        FROM student,selectedcourse
+        WHERE courseID=#{courseID}
+        AND student.userID=selectedcourse.studentID
+    </select>
+
+    <select id="selectStudentMark" resultType="com.jumper.pojo.StudentMark">
+        SELECT student.userID userID,student.userName userName,selectedcourse.mark mark,courseID
+        FROM student,selectedcourse
+        WHERE courseID=#{courseID}
+        AND student.userID=#{userID}
+        AND student.userID=selectedcourse.studentID
+    </select>
+
+    <update id="updateMark" parameterType="com.jumper.pojo.SelectedCourse">
+        update selectedcourse set mark=#{mark}
+        where courseID=#{courseID} and studentID=#{studentID}
+    </update>
+
+    <select id="countStudentChoose" parameterType="int" resultType="int">
+        select count(1) from selectedcourse
+        where studentID=#{userID}
+    </select>
+
+</mapper>
