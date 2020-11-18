@@ -1,6 +1,6 @@
 .idea
 .mvn
-*.im
+*.iml
 target/
 logs/
 *.txt
