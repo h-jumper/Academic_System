@@ -1,10 +1,6 @@
 .idea
-
 .mvn
-
-.iml
-
-
+*.im
 target/
-
 logs/
+*.txt
