@@ -44,16 +44,16 @@ ORM框架：Mybatis
 # 页面展示
 登录页
 
-![image](https://gitee.com/jumper17/Academic_System/blob/main/image/login.png)
+![image](https://gitee.com/jumper17/Academic_System/raw/main/image/login.png)
 
 主页
 
-![image](https://gitee.com/jumper17/Academic_System/blob/main/image/main.png)
+![image](https://gitee.com/jumper17/Academic_System/raw/main/image/main.png)
 
 添加课程
 
-![image](https://gitee.com/jumper17/Academic_System/blob/main/image/add.png)
+![image](https://gitee.com/jumper17/Academic_System/raw/main/image/add.png)
 
 修改密码
 
-![image](https://gitee.com/jumper17/Academic_System/blob/main/image/alter.png)
+![image](https://gitee.com/jumper17/Academic_System/raw/main/image/alter.png)
