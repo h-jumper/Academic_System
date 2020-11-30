@@ -1,5 +1,5 @@
 # 简介
-该项目是一个简单的教务查询系统，用于熟悉基本的SSM整合开发。从https://github.com/JaceyRx/Examination_System该项目拷贝而来。使用原项目的前端页面，重新完成了后端请求，并使用了ajax技术。
+该项目是一个简单的教务查询系统，用于熟悉基本的SSM整合开发。从 https://github.com/JaceyRx/Examination_System 该项目拷贝而来。使用原项目的前端页面，重新完成了后端请求，并使用了ajax技术。
 
 # 项目搭建详细博客
 项目整体配置：https://blog.csdn.net/jumpe_17/article/details/110404104
