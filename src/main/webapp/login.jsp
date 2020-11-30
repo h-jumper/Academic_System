@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <!-- 引入JQuery  bootstrap.js-->
     <script src="/js/jquery-3.2.1.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
     <style type="text/css">
         body {
             background: url(images/a.jpg) repeat;
