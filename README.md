@@ -6,7 +6,7 @@
 # 项目搭建详细博客
 项目整体配置：https://blog.csdn.net/jumpe_17/article/details/110404104
 
-shiro：
+shiro：https://blog.csdn.net/jumpe_17/article/details/110564034
 
 # 使用技术
 IOC容器：Spring
